@@ -1,27 +1,36 @@
-import { ArrowUpRightIcon, StarIcon } from "lucide-react";
+import {
+  ArrowUpRightIcon,
+  StarIcon,
+} from "lucide-react";
 import SectionHeader from "../commoncomponents/section-header";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import ProductCard from "../commoncomponents/productCard";
 
 const FeatureProduct = [
   {
     id: 1,
     name: "Premium Headphones",
-    Description: "High-quality sound with noise cancellation",
     tag: ["Ai", "Sassy_Frass", "Global"],
-    votes:656,
-    isFeatured:true
+    description: "Premium Headphones",
+    votes: 10,
+    isFeatured: true,
   },
   {
     id: 2,
     name: "Wireless Mouse",
-    Description: "Ergonomic design with precise tracking",
-    
+    tag: ["Ai", "Sassy_Frass", "Global"],
+    description: "Wireless Mouse",
+    votes: 10,
+    isFeatured: true,
   },
   {
     id: 4,
     name: "Smart Watch",
-    Description: "Fitness tracking and smart notifications",
+    tag: ["Ai", "Sassy_Frass", "Global"],
+    description: "Smart Watch",
+    votes: 10,
+    isFeatured: true,
   },
 ];
 
@@ -44,7 +53,12 @@ export default function FeaturesCard() {
           </Button>
         </div>
 
+        {/*for the cards */}
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {FeatureProduct.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
         </div>
       </div>
     </section>
