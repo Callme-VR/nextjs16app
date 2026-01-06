@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/landingpage/Header";
+import Footer from "@/components/landingpage/Footer";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -19,9 +21,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${outfit.className} antialiased`}>
         {/*for the for all pages header we need here. */}
-        <header>BlobArticle</header>
+        <Header />
         {children}
-        <footer>BlobArticle inc.All right Reserved</footer>
+        <Footer />
       </body>
     </html>
   );
