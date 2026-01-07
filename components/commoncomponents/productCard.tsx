@@ -7,22 +7,21 @@ import {
   CardTitle,
 } from "../ui/card";
 import { Badge } from "../ui/badge";
-import { ChevronDownIcon, ChevronUpIcon, StarIcon } from "lucide-react";
+import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 
 type Product = {
   id: number;
   name: string;
-  tag: string[];
-  description: string;
-  votes: number;
-  isFeatured: boolean;
+  tags: string[] | null;
+  description: string | null;
+  voteCount: number;
 };
 
 export default function ProductCard({ product }: { product: Product }) {
 
-     const hasVotes = product.votes > 0;
+     const hasVotes = product.voteCount > 0;
 
 
 
@@ -37,12 +36,6 @@ export default function ProductCard({ product }: { product: Product }) {
                 <CardTitle className="text-lg group-hover:text-primary transition-colors">
                   {product.name}
                 </CardTitle>
-                {product.isFeatured && (
-                  <Badge variant={"destructive"}>
-                    <StarIcon className="size-4" />
-                    Featured
-                  </Badge>
-                )}
               </div>
               <CardDescription className="group-hover:text-primary transition-colors">
                 {product.description}
@@ -50,7 +43,7 @@ export default function ProductCard({ product }: { product: Product }) {
             </CardHeader>
             <CardFooter>
               <div className="flex items-center justify-between gap-2">
-                {product.tag.map((tag) => (
+                {product.tags?.map((tag: string) => (
                   <Badge variant={"destructive"} key={tag}>
                     {tag}
                   </Badge>
@@ -64,7 +57,7 @@ export default function ProductCard({ product }: { product: Product }) {
               <ChevronUpIcon className="size-3 text-primary" />
             </Button>
             <span className="text-xs text-muted-foreground font-semibold">
-              {product.votes}
+              {product.voteCount}
             </span>
             <Button variant="ghost" size="icon" className={cn("h-6 w-6", { "hover:text-destructive": hasVotes, "opacity-50 cursor-not-allowed": !hasVotes })}>
               <ChevronDownIcon className="size-3 text-primary" />

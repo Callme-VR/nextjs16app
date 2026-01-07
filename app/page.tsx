@@ -5,7 +5,7 @@ import RecentlyAddedCard from "@/components/landingpage/RecentlyAddedCard";
 export default function Home() {
     return (
       <div>
-        <Herosection/>
+        <Herosection/> 
         <FeaturesCard/>
         <RecentlyAddedCard/>
       </div>
