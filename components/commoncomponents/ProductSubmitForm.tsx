@@ -2,27 +2,15 @@
 import { SparkleIcon } from "lucide-react";
 import { FormField } from "../form/form-field";
 import { Button } from "../ui/button";
+import { submitProduct } from "@/lib/products/product-action";
 
 export default function ProductSubmitForm() {
-
-     const handleSubmit=(e:React.FormEvent<HTMLFormElement>)=>{
-          e.preventDefault();
-          console.log("Form submitted");
-     }
-
-
-
-
-
-
-
-
-
-
-
+  const handleSubmit = async (FormData: FormData) => {
+    await submitProduct(FormData);
+  };
 
   return (
-    <form className="space-y-7" onSubmit={handleSubmit}>
+    <form className="space-y-7" action={handleSubmit}>
       <FormField
         label="Product Name"
         name="name"
