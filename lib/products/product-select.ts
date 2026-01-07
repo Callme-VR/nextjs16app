@@ -12,10 +12,10 @@ export async function GetFeatureProduct() {
 
 
 export async function GetRecentlyAddedProduct() {
-     const productsData = await GetFeatureProduct();
+     const RecentlyAddedproductsData = await GetFeatureProduct();
      const oneweekAgo=new Date();
      oneweekAgo.setDate(oneweekAgo.getDate()-7);
-     return productsData.filter((product)=>product.createdAt && product.createdAt >= oneweekAgo)
+     return RecentlyAddedproductsData.filter((product)=>product.createdAt && product.createdAt >= oneweekAgo)
      
 
 }

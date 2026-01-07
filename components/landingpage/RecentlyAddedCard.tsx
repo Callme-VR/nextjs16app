@@ -1,3 +1,4 @@
+"use cache"
 import { CalendarIcon, RocketIcon } from "lucide-react";
 import SectionHeader from "../commoncomponents/section-header";
 import ProductCard from "../commoncomponents/productCard";
@@ -15,8 +16,7 @@ export default async function RecentlyAddedCard() {
           icon={RocketIcon}
           description="Recently Added Products in our platform"
         />
-
-        {RecentlyLaunchedProduct.length === 0 ? (
+        {RecentlyLaunchedProduct?.length === 0 ? (
           <EmptyCard message="No Products Added" icon={CalendarIcon} />
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
