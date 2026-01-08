@@ -7,12 +7,11 @@ import { ChevronUpIcon, ChevronDownIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface VotingButtonsProps {
-  hasVoted: boolean;
   voteCount: number;
   productId: string;
 }
 
-export default function VotingButtons({ hasVoted, voteCount: initialVoteCount, productId }: VotingButtonsProps) {
+export default function VotingButtons({ voteCount: initialVoteCount, productId }: VotingButtonsProps) {
   const [optimisticVoteCount, setOptimisticVoteCount] = useOptimistic(
     initialVoteCount,
     (currentCount, change: number) => Math.max(0, currentCount + change)
@@ -45,7 +44,7 @@ export default function VotingButtons({ hasVoted, voteCount: initialVoteCount, p
         size="icon-sm"
         className={cn(
           "h-8 w-8 text-primary ",
-          hasVoted
+          optimisticVoteCount > 0
             ? "bg-primary/10 text-primary hover:bg-primary/20"
             : "hover:bg-primary/10 hover:text-primary"
         )}

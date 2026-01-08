@@ -21,6 +21,7 @@ type Product = {
   tags: string[] | null;
   description: string | null;
   voteCount: number;
+  slug: string;
 };
 
 export default function ProductCard({ product }: { product: Product }) {
@@ -55,7 +56,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
 
   return (
-    <Link href={`/products/${product.id}`}>
+    <Link href={`/products/${product.slug}`}>
       <Card className="group card-hover hover:bg-primary-foreground/20 border-solid border-gray-400 hover:border-gray-600 transition-all duration-300 ease-in-out">
         <div className="flex">
           <div className="flex-1">

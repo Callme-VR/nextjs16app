@@ -15,9 +15,15 @@ export async function GetFeatureProduct() {
 export async function GetRecentlyAddedProduct() {
      "use cache";
      const RecentlyAddedproductsData = await GetFeatureProduct();
-     const oneweekAgo=new Date();
-     oneweekAgo.setDate(oneweekAgo.getDate()-7);
-     return RecentlyAddedproductsData.filter((product)=>product.createdAt && product.createdAt >= oneweekAgo)
-     
+     const oneweekAgo = new Date();
+     oneweekAgo.setDate(oneweekAgo.getDate() - 7);
+     return RecentlyAddedproductsData.filter((product) => product.createdAt && product.createdAt >= oneweekAgo)
 
+
+}
+
+export async function getProductBySlug(slug: string) {
+     "use cache";
+     const product = await db.select().from(products).where(eq(products.slug, slug));
+     return product?.[0] || null;
 }
