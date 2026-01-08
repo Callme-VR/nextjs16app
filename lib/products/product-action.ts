@@ -17,9 +17,12 @@ type FormState = {
 
 export async function submitProductAction(prevState: FormState, formData: FormData) {
      try {
-          const { userId } = await auth();
+          const { userId, orgId } = await auth();
           if (!userId) {
                return { success: false, message: "User not authenticated" };
+          }
+          if (!orgId) {
+               return { success: false, message: "Organization not found" };
           }
           const user = await currentUser();
           const userEmail = user?.emailAddresses[0]?.emailAddress || "";
@@ -40,6 +43,7 @@ export async function submitProductAction(prevState: FormState, formData: FormDa
                tags: tagsArray,
                status: "pending",
                submittedBy: userEmail,
+               organizationId: orgId,
                userId: userId
           });
           return { success: true, message: "Product submitted successfully" };

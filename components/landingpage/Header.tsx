@@ -11,10 +11,12 @@ import {
   LoaderIcon,
   SparkleIcon,
   SparklesIcon,
+  UserIcon,
 } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 import { Button } from "../ui/button";
+import CustomUserButton from "../commoncomponents/custom-user-button";
 // import CustomUserButton from "./custom-user-button";
 
 const Logo = () => {
@@ -77,7 +79,7 @@ export default function Header() {
                   </Link>
                 </Button>
 
-                <UserButton />
+                <CustomUserButton />
               </SignedIn>
             </Suspense>
           </div>
