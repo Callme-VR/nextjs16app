@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import {
   Card,
@@ -10,6 +12,8 @@ import { Badge } from "../ui/badge";
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
+import { downvoteProduct, upvoteProduct } from "@/lib/products/product-action";
+import { useOptimistic, useTransition } from "react";
 
 type Product = {
   id: number;
@@ -20,8 +24,32 @@ type Product = {
 };
 
 export default function ProductCard({ product }: { product: Product }) {
+  const [optimisticVoteCount, setOptimisticVoteCount] = useOptimistic(
+    product.voteCount,
+    (currentCount, change: number) => Math.max(0, currentCount + change)
+  );
 
-     const hasVotes = product.voteCount > 0;
+  const [isPending, startTransition] = useTransition();
+
+  const handleUpvote = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    startTransition(async () => {
+      setOptimisticVoteCount(1);
+      await upvoteProduct(product.id.toString());
+    });
+  };
+
+  const handleDownvote = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    startTransition(async () => {
+      setOptimisticVoteCount(-1);
+      await downvoteProduct(product.id.toString());
+    });
+  };
+
+  const hasVotes = optimisticVoteCount > 0;
 
 
 
@@ -53,13 +81,25 @@ export default function ProductCard({ product }: { product: Product }) {
           </div>
           
           <div className="flex flex-col items-center gap-1 shrink-0 p-4">
-            <Button variant="ghost" size="icon" className={cn("h-6 w-6", { "hidden": !hasVotes })}>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className={cn("h-6 w-6", { "hidden": !hasVotes })}
+              onClick={handleUpvote}
+              disabled={isPending}
+            >
               <ChevronUpIcon className="size-3 text-primary" />
             </Button>
             <span className="text-xs text-muted-foreground font-semibold">
-              {product.voteCount}
+              {optimisticVoteCount}
             </span>
-            <Button variant="ghost" size="icon" className={cn("h-6 w-6", { "hover:text-destructive": hasVotes, "opacity-50 cursor-not-allowed": !hasVotes })}>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className={cn("h-6 w-6", { "hover:text-destructive": hasVotes, "opacity-50 cursor-not-allowed": !hasVotes })}
+              onClick={hasVotes ? handleDownvote : undefined}
+              disabled={isPending || !hasVotes}
+            >
               <ChevronDownIcon className="size-3 text-primary" />
             </Button>
           </div>

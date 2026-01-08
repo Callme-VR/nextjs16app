@@ -22,14 +22,14 @@ export default function VotingButtons({ hasVoted, voteCount: initialVoteCount, p
 
   const handleUpvote = async () => {
     startTransition(async () => {
-      setOptimisticVoteCount(1);
+      setOptimisticVoteCount(optimisticVoteCount + 1);
       await upvoteProduct(productId);
     })
   }
 
   const handleDownvote = async () => {
     startTransition(async () => {
-      setOptimisticVoteCount(-1);
+      setOptimisticVoteCount(optimisticVoteCount - 1);
       await downvoteProduct(productId);
     })
   }
@@ -60,10 +60,12 @@ export default function VotingButtons({ hasVoted, voteCount: initialVoteCount, p
         onClick={handleDownvote}
         variant="ghost"
         size="icon-sm"
-        disabled={isPending}
+        disabled={isPending || optimisticVoteCount === 0}
         className={cn(
           "h-8 w-8 text-primary ",
-          hasVoted ? "hover:text-destructive" : "opacity-50 cursor-not-allowed"
+          optimisticVoteCount > 0
+            ? "hover:text-destructive"
+            : "opacity-50 cursor-not-allowed"
         )}
       >
         <ChevronDownIcon className="size-5" />
