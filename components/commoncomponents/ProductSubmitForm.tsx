@@ -11,7 +11,7 @@ const initialState = {
   error: {} as Record<string, string[]>,
 };
 
-export default function ProductSubmitForm() {
+export default function Product9SubmitForm() {
   const [state, formAction, isPending] = useActionState(
     submitProductAction,
     initialState
