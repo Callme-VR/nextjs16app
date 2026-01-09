@@ -27,15 +27,15 @@ const LiveBadge = () => {
 const statedata = [
   {
     icon: RocketIcon,
-    value: "2.5K+",
+    value: "1500",
     label: "Projects Shared"
   }, {
     icon: UserIcon,
-    value: "10K+",
+    value: "100",
     label: "Active Creators"
   }, {
     icon: EyeIcon,
-    value: "50K+",
+    value: "3000",
     label: "Monthly Visitors"
   }
 ]
