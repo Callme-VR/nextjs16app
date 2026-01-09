@@ -105,3 +105,57 @@ export async function downvoteProduct(productId: string) {
      }
 
 }
+
+export async function approveProduct(productId: string) {
+     try {
+          const { userId } = await auth();
+          if (!userId) {
+               return { success: false, message: "User not authenticated" };
+          }
+          
+          const user = await currentUser();
+          const isAdmin = user?.publicMetadata?.isAdmin ?? false;
+          
+          if (!isAdmin) {
+               return { success: false, message: "Admin access required" };
+          }
+
+          await db.update(products).set({
+               status: "approved",
+               approvedAt: new Date()
+          }).where(eq(products.id, Number(productId)));
+
+          revalidatePath("/admin");
+          revalidatePath("/explore");
+          return { success: true, message: "Product approved successfully" };
+     } catch (error) {
+          console.error("Error approving product:", error);
+          return { success: false, message: "Failed to approve product" };
+     }
+}
+
+export async function rejectProduct(productId: string) {
+     try {
+          const { userId } = await auth();
+          if (!userId) {
+               return { success: false, message: "User not authenticated" };
+          }
+          
+          const user = await currentUser();
+          const isAdmin = user?.publicMetadata?.isAdmin ?? false;
+          
+          if (!isAdmin) {
+               return { success: false, message: "Admin access required" };
+          }
+
+          await db.update(products).set({
+               status: "rejected"
+          }).where(eq(products.id, Number(productId)));
+
+          revalidatePath("/admin");
+          return { success: true, message: "Product rejected successfully" };
+     } catch (error) {
+          console.error("Error rejecting product:", error);
+          return { success: false, message: "Failed to reject product" };
+     }
+}

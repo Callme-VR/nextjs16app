@@ -4,7 +4,7 @@ import { eq } from "drizzle-orm"
 
 
 export async function GetFeatureProduct() {
-     "use cache";
+     // "use cache";
      const productsData = await db.select().from(products).where(eq(products.status, "approved")).orderBy(products.voteCount)
 
      return productsData
@@ -13,7 +13,7 @@ export async function GetFeatureProduct() {
 
 
 export async function GetRecentlyAddedProduct() {
-     "use cache";
+     // "use cache";
      const RecentlyAddedproductsData = await GetFeatureProduct();
      const oneweekAgo = new Date();
      oneweekAgo.setDate(oneweekAgo.getDate() - 7);
@@ -23,7 +23,7 @@ export async function GetRecentlyAddedProduct() {
 }
 
 export async function getProductBySlug(slug: string) {
-     "use cache";
+     // "use cache";
      const product = await db.select().from(products).where(eq(products.slug, slug));
      return product?.[0] || null;
 }
