@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
-import { ArrowLeft, ArrowRight, EyeIcon, RocketIcon, SparkleIcon, UserIcon } from "lucide-react";
+import { ArrowRight, EyeIcon, RocketIcon, SparkleIcon, UserIcon } from "lucide-react";
 import StatesCard from "./statesCard";
 
 // make function for the live badge
@@ -12,7 +12,7 @@ const LiveBadge = () => {
       className="px-4 py-2 mb-8 text-sm backdrop-blur-sm"
     >
       <span className="relative flex h-2 w-2">
-        <span className="animate-ping h-2 w-2 inline-flex h-full w-full rounded-full bg-primary opacity-75">
+        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75">
           <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
         </span>
       </span>
@@ -27,17 +27,16 @@ const LiveBadge = () => {
 const statedata = [
   {
     icon: RocketIcon,
-    value: "60+",
-    label: "Projects shared"
+    value: "2.5K+",
+    label: "Projects Shared"
   }, {
     icon: UserIcon,
-    value: "100+",
-    label: "Active creator",
-    hasBorder:true
+    value: "10K+",
+    label: "Active Creators"
   }, {
     icon: EyeIcon,
-    value: "300+",
-    label: "Monthly visitors"
+    value: "50K+",
+    label: "Monthly Visitors"
   }
 ]
 
@@ -46,9 +45,9 @@ const statedata = [
 
 export default function Herosection() {
   return (
-    <section className="relative overflow-hidden bg-linear-to-b from-background via-background to-muted/20">
+    <section className="relative overflow-hidden bg-stone-100">
       <div className="wrapper">
-        <div className="flex flex-col items-center justify-center lg:py-24 py-13 text-center">
+        <div className="flex flex-col items-center justify-center py-20 text-center">
           <LiveBadge />
 
           {/* for the h1 element */}
@@ -68,12 +67,12 @@ export default function Herosection() {
             <Button className="text-base px-7 shadow-lg" asChild size={"lg"}>
               <Link href={"/submit"}>
                 <SparkleIcon className="size-4" />
-                Share Thought
+                Share Your Project
               </Link>
             </Button>
             <Button className="text-base px-7 shadow-lg" asChild size={"lg"} variant={"secondary"}>
               <Link href={"/explore"}>
-                Explore thought
+                Explore Projects
 
                 <ArrowRight className="size-4" />
               </Link>

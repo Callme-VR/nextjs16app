@@ -8,19 +8,21 @@ export default function Home() {
   return (
     <div>
       <Herosection />
-      <Suspense fallback={<div>Loading featured products...</div>}>
-        <FeaturesCard />
-      </Suspense>
-      <Suspense
-        fallback={
-          <div className="wrapper flex justify-center items-center gap-4">
+      <div className="space-y-20">
+        <Suspense fallback={<div>Loading featured products...</div>}>
+          <FeaturesCard />
+        </Suspense>
+        <Suspense
+          fallback={
+            <div className="wrapper flex justify-center items-center gap-4">
             Loading recent products...
             <LoaderIcon className="size-4 animate-spin" />
           </div>
-        }
-      >
-        <RecentlyAddedCard />
-      </Suspense>
+          }
+        >
+          <RecentlyAddedCard />
+        </Suspense>
+      </div>
     </div>
   );
 }
